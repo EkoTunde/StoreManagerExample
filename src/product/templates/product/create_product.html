@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .create-form {
+        width: 100%;
+        max-width: 100%;
+        padding: 15px;
+        margin: auto;
+    }
+
+    .submit-button {
+        max-width: 200px;
+    }
+</style>
+
+<form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <div class="container">
+
+        <!-- Name -->
+        <div class="row justify-content-evenly">
+            <div class="form-group col-xs-12 col-md-6 mb-3">
+                <label for="id_name" class="mb-1">Name</label>
+                <input class="form-control" type="text" name="name" id="id_name" placeholder="Name" required autofocus>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center">
+            <div class="form-group col-xs-12 col-md-6 mb-3">
+                <label for="id_category" class="mb-1">Category</label>
+                <select class="form-select" id="id_category" name="category" aria-label="Default select example"
+                    required>
+                    <option selected>Open this select menu</option>
+                    {% for category in categories%}
+                    {% include 'product/snippets/category_option.html' with value=category %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <!-- Manufacturer -->
+            <div class="form-group col-sm-6 col-md-3 mb-3">
+                <label for="id_manufacturer" class="mb-1">Manufacturer</label>
+                <input class="form-control" type="text" name="manufacturer" id="id_manufacturer"
+                    aria-label="Manufacturer" required>
+            </div>
+
+            <!-- Model -->
+            <div class="form-group col-sm-6 col-md-3 mb-3">
+                <label for="id_model" class="mb-1">Code</label>
+                <input type="text" class="form-control" aria-label="Amount" name="model" id="model"
+                    placeholder="CSVG-26598" required>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <!-- Price -->
+            <div class="form-group col-sm-6 col-md-3 mb-3">
+                <label for="id_price" class="mb-1">Price</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input class="form-control" type="number" aria-label="Price" name="price" id="id_price" step="1.00"
+                        value="0.00" min="0.00" max="99999999.99" required>
+                </div>
+            </div>
+
+            <!-- Discount -->
+            <div class="form-group col-sm-6 col-md-3 mb-3">
+                <label for="id_discount" class="mb-1">Current Discount</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input class="form-control" type="number" aria-label="Amount" name="discount" id="id_discount"
+                        step="1.00" required value="0" min="0" max="100">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Specifications -->
+        <div class="row justify-content-evenly">
+            <div class="form-group col-xs-12 col-md-6 mb-3">
+                <label for="id_specifications" class="mb-1">Specifications</label>
+                <textarea class="form-control" type="text" name="specifications" id="id_specifications"
+                    required></textarea>
+            </div>
+        </div>
+
+
+        <!-- Stock -->
+        <div class="row justify-content-evenly">
+            <div class="form-group col-xs-12 col-md-6 mb-3">
+                <label for="id_stock" class="mb-1">Available Stock</label>
+                <div class="input-group mb-3">
+                    <input class="form-control" type="number" aria-label="Amount" name="stock" id="id_stock" step="1"
+                        value="0" min="0" max="9999999999999999" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit btn -->
+        <div class="row justify-content-evenly">
+            <div class="col-xs-12 col-md-6">
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+{% endblock content %}

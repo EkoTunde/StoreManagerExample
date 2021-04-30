@@ -1,0 +1,9 @@
+<tr>
+    <th scope="row">{{product.id}}</th>
+    <td><a href="{% url 'product:detail' product.slug %}">{{product.name}}</a></td>
+    <td>{{product.manufacturer}}</td>
+    <td>{{product.model}}</td>
+    <td>{{product.price}}</td>
+    <td>{{product.discount}}</td>
+    <td>{{product.stock}}</td>
+</tr>

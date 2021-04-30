@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .create-form {
+        width: 100%;
+        max-width: 100%;
+        padding: 15px;
+        margin: auto;
+    }
+
+    .submit-button {
+        max-width: 200px;
+    }
+
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+    }
+
+    .text {
+        margin: auto;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 15px;
+        padding: 15px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+            {% if success_message %}
+            <h3 style="color:green; text-align: center;">{{success_message}}</h3>
+            {% endif %}
+
+            <!-- Name -->
+            <div class="row justify-content-evenly">
+                <div class="form-group col-xs-12 col-md-6 mb-3">
+                    <label for="id_name" class="mb-1">Name</label>
+                    <input class="form-control" type="text" name="name" id="id_name" placeholder="Name"
+                        aria-label="Name" value="{{form.initial.name}}" required autofocus>
+                </div>
+            </div>
+
+
+            <!-- Category -->
+            <div class="row justify-content-center">
+                <div class="form-group col-xs-12 col-md-6 mb-3">
+                    <label for="id_category" class="mb-1">Category</label>
+                    <select class="form-select" aria-label="Category" id="id_category" required>
+                        {% for category in categories %}
+                        {% include 'product/snippets/category_option.html' with value=category selected=form.initial.category %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <!-- Manufacturer -->
+                <div class="form-group col-sm-6 col-md-3 mb-3">
+                    <label for="id_manufacturer" class="mb-1">Manufacturer</label>
+                    <input type="text" class="form-control" aria-label="Manufacturer" name="manufacturer"
+                        id="id_manufacturer" value="{{form.initial.manufacturer}}" required>
+                </div>
+
+                <!-- Model -->
+                <div class="form-group col-sm-6 col-md-3 mb-3">
+                    <label for="id_model" class="mb-1">Model</label>
+                    <input type="text" class="form-control" aria-label="Model" name="model" id="id_model"
+                        placeholder="CSVG-26598" value="{{form.initial.model}}" required>
+                </div>
+            </div>
+
+
+            <div class="row justify-content-center">
+                <!-- Price -->
+                <div class="form-group col-sm-6 col-md-3 mb-3">
+                    <label for="id_price" class="mb-1">Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" aria-label="Price" name="price" id="id_price"
+                            step="1.00" min="0.00" max="99999999.99" value="{{form.initial.price}}" required>
+                    </div>
+                </div>
+
+                <!-- Discount -->
+                <div class="form-group col-sm-6 col-md-3 mb-3">
+                    <label for="id_discount" class="mb-1">Current Discount</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" aria-label="Discount" name="discount" id="id_discount"
+                            step="1.00" value="{{form.initial.discount}}" min="0" max="100" required>
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Specifications -->
+            <div class="row justify-content-evenly">
+                <div class="form-group col-xs-12 col-md-6 mb-3">
+                    <label for="id_specifications" class="mb-1">Specifications</label>
+                    <textarea class="form-control" type="text" name="specifications" id="id_specifications"
+                        aria-label="Specifications" required>{{form.initial.specifications}}</textarea>
+                </div>
+            </div>
+
+
+            <!-- Stock -->
+            <div class="row justify-content-evenly">
+                <div class="form-group col-xs-12 col-md-6 mb-3">
+                    <label for="id_stock" class="mb-1">Available Stock</label>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" aria-label="Stock" name="stock" id="id_stock" step="1"
+                            value="{{form.initial.stock}}" min="0" max="9999999999999999" required>
+                    </div>
+                </div>
+            </div>
+
+            <!--
+            {% for field in form %}
+        <p>
+            {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </p>
+        {% endfor %}
+        {% if form.non_field_errors %}
+        <div style="color: red">
+            <p>{{form.non_field_errors}}</p>
+        </div>
+        {% endif %}
+        -->
+
+            {% if form.errors %}
+            {% for field in form %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+
+            <!-- Submit btn -->
+            <div class="row justify-content-evenly">
+                <div class="col-xs-12 col-md-6">
+                    <button class="submit-button w-100 btn btn-lg btn-primary" type="submit">Update</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
