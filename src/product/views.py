@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseNotFound
 from product.models import Product
-from product.models import CATEGORIES
+from product.constants import CATEGORIES
 from product.forms import CreateProductForm, UpdateProductForm
 from account.models import Account
 

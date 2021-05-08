@@ -34,10 +34,12 @@ INSTALLED_APPS = [
     
     # My apps
     'account',
+    'budgets',
+    'carts',
     'customer',
     'orders',
-    'product',
     'personal',
+    'product',
     
     
     # Default Django Apps

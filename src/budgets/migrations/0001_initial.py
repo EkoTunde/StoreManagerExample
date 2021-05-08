@@ -17,19 +17,19 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Order',
+            name='Budget',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('done', models.BooleanField(default=False)),
                 ('date_created', models.DateTimeField(auto_now_add=True, verbose_name='creation date')),
                 ('slug', models.SlugField(blank=True, unique=True)),
-                ('account', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='customer.Customer')),
+                ('account', models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('customer', models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='customer.Customer')),
                 ('products', models.ManyToManyField(to='product.Product')),
             ],
             options={
-                'verbose_name': 'Order',
-                'verbose_name_plural': 'Orders',
+                'verbose_name': 'Budget',
+                'verbose_name_plural': 'Budgets',
             },
         ),
     ]

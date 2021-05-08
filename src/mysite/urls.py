@@ -45,4 +45,5 @@ urlpatterns = [
     path('', home_screen_view, name='home'),
     path('admin/', admin.site.urls),
     path('product/', include('product.urls', 'product')),
+    path('carts/', include('carts.urls')),
 ]
