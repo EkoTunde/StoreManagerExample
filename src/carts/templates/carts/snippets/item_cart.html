@@ -1,6 +1,6 @@
 <tr>
     <th scope="row">{{cart.id}}</th>
-    <td width="5%"><a href="#">{{cart.date_created}}</a></td>
+    <td width="5%"><a href="{{ cart.get_absolute_url }}">{{cart.date_created}}</a></td>
     <td width="5%">{{cart.account}}</td>
     <td width="5%">{{cart.customer}}</td>
 </tr>

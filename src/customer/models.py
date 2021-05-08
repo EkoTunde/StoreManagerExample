@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_delete, pre_save
+from django.utils.text import slugify
 
 
 class Customer(models.Model):
@@ -20,3 +22,11 @@ class Customer(models.Model):
     class Meta:
         verbose_name = "Customer"
         verbose_name_plural = "Customers"
+
+
+def pre_save_customer_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = slugify(instance.doc_id)
+
+
+pre_save.connect(pre_save_customer_receiver, sender=Customer)

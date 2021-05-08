@@ -1,6 +1,5 @@
 from django import forms
 
-from budgets.models import Budget
 
 class RawProductForm(forms.Form):
     title       = forms.CharField(label='', widget=forms.TextInput(attrs={"placeholder": "Your title"}))

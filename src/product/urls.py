@@ -1,5 +1,5 @@
 from django.urls import path
-from src.product.views import(
+from .views import(
     create_product_view,
     detail_product_view,
     edit_product_view,
