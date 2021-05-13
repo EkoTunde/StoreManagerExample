@@ -4,7 +4,7 @@
 <style type="text/css">
   .main {
     margin: 25px;
-    width: 100%;
+    width: 80%;
     padding: 10px;
   }
 
@@ -15,16 +15,6 @@
   .even {
     padding: 2px;
   }
-
-  tr {
-    width: 50px;
-  }
-
-  th,
-  td {
-    padding: 1px;
-    width: 10%;
-  }
 </style>
 
 <div class="main">
@@ -33,25 +23,46 @@
   <p><b>Created:</b> {{ object.date_created }}</p>
   <p><b>User:</b> <a href="{{ object.account.get_absolute_url }}">{{ object.account.email }}</a></p>
   <p><b>Customer:</b> {{ object.customer.last_name }}, {{ object.customer.first_name }}
-    ({{ object.customer.doc_id }}) <input type='submit' value='Editar' />
+    ({{ object.customer.doc_id }}) <input type='submit' name='' value='Edit' onclick="changeUserFormVisibility()" />
   </p>
 
+  <div id="user-form" style="background-color: #333333; padding: 10px;">
+  </div>
+
+  {% if items %}
   <h4>Products</h4>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th width="5%" scope="col">#</th>
-        <th width="5%" scope="col">Date created</th>
-        <th width="5%" scope="col">User</th>
-        <th width="5%" scope="col">Customer</th>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Discount</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Total</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
-      {% for instance in object_list %}
-      {% include 'carts/snippets/item_product_of_cart.html' with cart=instance rownum=forloop.counter %}
+      {% for item in items %}
+      {% include 'carts/snippets/item_product_of_cart.html' with cart_id=object.id cart_item=item.cart_item total=item.total rownum=forloop.counter %}
       {% endfor %}
     </tbody>
+    {% if total_amount != '0' %}
+    {% include 'carts/snippets/cart_detail_total.html' with total_amount=total_amount %}
+    {% endif %}
   </table>
+  {% endif %}
+  <input type="button" onclick="location.href='#';" value='Remove Selected' />
+  <input type="button" onclick="location.href='{% url 'home' %}';" value='Add products' />
 </div>
+
+<script type="text/javascript">
+  document.getElementById("id_q").value = "{{query}}"
+
+  function changeUserFormVisibility() {
+    document.getElementById("user-form").style.visibility = visibility == 'hidden' ? 'visible' : 'hidden'
+  }
+</script>
 
 {% endblock %}

@@ -34,7 +34,11 @@
         </div> -->
 
     <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="#">Home</a>
+        <a class="p-2 text-dark" href="{% url 'home' %}">Home</a>
+        <a class="p-2 text-dark" href="{{cart_url}}">Cart{{cart_items}}</a>
+        {% if request.user.is_authenticated and request.user.is_manager %}
+        <a class="p-2 text-dark" href="Management">Management</a>
+        {% endif %}
         <a class="p-2 text-dark" href="#">Account</a>
         <a class="p-2 text-dark" href="#">Logout</a>
     </nav>

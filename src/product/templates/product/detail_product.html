@@ -10,6 +10,11 @@
     .container {
         padding: 20px;
     }
+
+    .formgroup {
+
+        margin-right: 15px;
+    }
 </style>
 
 <div class="container">
@@ -25,15 +30,44 @@
                 <p class="card-text"><b>Model:</b> {{product.model|safe}}</p>
                 <p class="card-text"><b>Stock availability:</b> {{product.stock|safe}}</p>
                 <p class="card-text"><b>Current discount: </b>{{product.discount|safe}}%</p>
-                <hr class="solid">
                 <h6 class="card-text"><u>Specifications: </u></h6>
                 <p class="card-text">{{product.specifications|safe}}</p>
-                {% if request.user.is_manager %}
-                <a href="{% url 'product:edit' product.slug %}" class="btn btn-primary">Update</a>
-                <a href="{% url 'product:confirm' product.slug %}" class="btn btn-danger btn-primary">Delete</a>
-            </div>
-            <div class="card-footer text-muted mb-2">
-                Updated on {{product.date_updated}} by {{product.last_editor}}
+
+                {% if request.user.is_authenticated %}
+
+                <hr>
+
+                {% if quantity > 0 %}
+                <div class="align-middle">
+                    <h4>{{quantity}} added to cart</h4>
+                </div>
+                {% endif %}
+
+                {% if product.stock > 0 and available > 0 %}
+                <div>
+                    <form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+                        <div class="input-group w-50">
+                            <span class="input-group-text" id="basic-addon1">x</span>
+                            <input type="number" class="form-control" aria-label="Quantity" name="quantity"
+                                id="id_quantity" step="1" value="1" min="1" max="{{available}}" suffix="x" required
+                                autofocus>
+                            <button class="submit-button btn btn-lg btn-primary" type="submit">Add to
+                                cart</button>
+                        </div>
+                    </form>
+                    {% endif %}
+
+                    {% if request.user.is_manager %}
+                    <hr>
+                    <a href="{% url 'product:edit' product.slug %}" class="btn btn-primary">Update</a>
+                    <a href="{% url 'product:confirm' product.slug %}" class="btn btn-danger btn-primary">Delete</a>
+                </div>
+                {% endif %}
+
+                <div class="card-footer text-muted mb-2 mt-3">
+                    Updated on {{product.date_updated}} by {{product.last_editor}}
+                </div>
+
                 {% endif %}
             </div>
         </div>

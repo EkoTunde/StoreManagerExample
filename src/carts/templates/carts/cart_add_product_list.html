@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<style type="text/css">
+    .main {
+        margin: 25px;
+        width: 80%;
+        padding: 10px;
+    }
+
+    .odd {
+        padding: 2px;
+    }
+
+    .even {
+        padding: 2px;
+    }
+
+    .back {
+        margin-bottom: 25px;
+    }
+
+    .search-bar {
+        max-width: 500px;
+        width: 100%;
+    }
+</style>
+
+<div class="main">
+    <div class="back">
+        <a href="{{ cart.get_absolute_url }}">Back to cart</a>
+    </div>
+    <div class="search-bar">
+        <form method="get">
+            <input class="form-control" type="text" name="q" id="id_q" placeholder="Search..." autofocus>
+        </form>
+    </div>
+    <div>
+        {% if products %}
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th width="5%" scope="col">#</th>
+                    <th width="5%" scope="col">Name</th>
+                    <th width="5%" scope="col">Category</th>
+                    <th width="5%" scope="col">Price</th>
+                    <th width="5%" scope="col">Discount</th>
+                    <th width="5%" scope="col">Total</th>
+                    <th width="5%" scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                {% include 'carts/snippets/product_queried.html' with product=product cart=cart%}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No matches found</p>
+        {% endif %}
+        <input type="select">
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.getElementById("id_q").value = "{{query}}"
+</script>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .card {
+        max-width: 700px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+
+        <!-- Product -->
+        <div class="card m-auto">
+            <form class="create-form" method="post" enctype="multipart/form-data">
+                <div class="card-body my-2">
+                    <h2 class="card-title">{{product.name}}</h2>
+                    <h5 class="card-title" style=""><i>{{product.category}}</i></h5>
+                    <h2 class="card-text">$ {{product.price|safe}}</h2>
+                    <p class="card-text"><b>Manufacturer:</b> {{product.manufacturer|safe}}</p>
+                    <p class="card-text"><b>Model:</b> {{product.model|safe}}</p>
+                    <p class="card-text"><b>Stock availability:</b> {{product.stock|safe}}</p>
+                    <p class="card-text"><b>Current discount: </b>{{product.discount|safe}}%</p>
+                    <hr class="solid">
+                    <h6 class="card-text"><u>Specifications: </u></h6>
+                    <p class="card-text">{{product.specifications|safe}}</p>
+                    <a href="{% url 'product:edit' product.slug %}" class="btn btn-primary">Update</a>
+                    <a href="{% url 'product:confirm' product.slug %}" class="btn btn-danger btn-primary">Delete</a>
+                    <input type='number' placeholder='Quantity' name='quantity' id='id_quantity' required autofocus>
+                </div>
+            </form>
+        </div>
+        <!-- End Blog post -->
+
+    </div>
+</div>
+
+
+{% endblock content %}

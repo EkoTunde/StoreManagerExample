@@ -37,12 +37,15 @@ from django.urls import path, include
 
 # Personal imports
 from personal.views import (
-    home_screen_view
+    home_screen_view,
+)
+from product.views import (
+    get_all_products_view,
 )
 
 
 urlpatterns = [
-    path('', home_screen_view, name='home'),
+    path('', get_all_products_view, name='home'),
     path('admin/', admin.site.urls),
     path('product/', include('product.urls', 'product')),
     path('carts/', include('carts.urls')),

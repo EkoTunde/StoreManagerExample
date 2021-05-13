@@ -4,6 +4,11 @@
     <td>{{product.manufacturer}}</td>
     <td>{{product.model}}</td>
     <td>{{product.price}}</td>
-    <td>{{product.discount}}</td>
+    {% if product.discount > 0 %}
+    <td>{{product.discount}}%</td>
+    {% else %}
+    <td>-</td>
+    {% endif %}
+    <td>{{product.get_total_price}}</td>
     <td>{{product.stock}}</td>
 </tr>

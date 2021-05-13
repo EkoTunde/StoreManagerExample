@@ -126,21 +126,6 @@
                 </div>
             </div>
 
-            <!--
-            {% for field in form %}
-        <p>
-            {% for error in field.errors %}
-            <p style="color: red">{{ error }}</p>
-            {% endfor %}
-        </p>
-        {% endfor %}
-        {% if form.non_field_errors %}
-        <div style="color: red">
-            <p>{{form.non_field_errors}}</p>
-        </div>
-        {% endif %}
-        -->
-
             {% if form.errors %}
             {% for field in form %}
             {% for error in field.errors %}
