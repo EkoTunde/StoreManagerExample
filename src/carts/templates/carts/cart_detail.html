@@ -61,7 +61,8 @@
   document.getElementById("id_q").value = "{{query}}"
 
   function changeUserFormVisibility() {
-    document.getElementById("user-form").style.visibility = visibility == 'hidden' ? 'visible' : 'hidden'
+    document.getElementById("user-form").style.visibility = document.getElementById("user-form").style.visibility ==
+      'hidden' ? 'visible' : 'hidden'
   }
 </script>
 
