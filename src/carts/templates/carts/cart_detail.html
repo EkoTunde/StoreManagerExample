@@ -15,29 +15,44 @@
   .even {
     padding: 2px;
   }
+
+  .product-row {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .actionbtn {
+    display: inline-block;
+  }
+
+  #actions {
+    text-align: center;
+  }
 </style>
 
 <div class="main">
   <h1>Cart details</h1>
   <hr class="solid">
   <p><b>Created:</b> {{ object.date_created }}</p>
-  <p><b>User:</b> <a href="{{ object.account.get_absolute_url }}">{{ object.account.email }}</a></p>
+  {% comment %} <p><b>User:</b> <a href="{{ object.account.get_absolute_url }}">{{ object.account.email }}</a></p>
   <p><b>Customer:</b> {{ object.customer.last_name }}, {{ object.customer.first_name }}
     ({{ object.customer.doc_id }}) <input type='submit' name='' value='Edit' onclick="changeUserFormVisibility()" />
+    {% endcomment %}
   </p>
 
-  <div id="user-form" style="background-color: #333333; padding: 10px;">
-  </div>
+  <!-- ><div id="user-form" style="background-color: #333333; padding: 10px;">
+  </div> -->
 
   {% if items %}
   <h4>Products</h4>
-  <table class="table table-striped table-hover">
-    <thead>
+  <table class="table table-hover table-responsive align-middle">
+    <thead class="table-dark">
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
         <th scope="col">Price</th>
         <th scope="col">Discount</th>
+        <th scope="col">Final price</th>
         <th scope="col">Quantity</th>
         <th scope="col">Total</th>
         <th scope="col"></th>
@@ -49,21 +64,28 @@
       {% endfor %}
     </tbody>
     {% if total_amount != '0' %}
-    {% include 'carts/snippets/cart_detail_total.html' with total_amount=total_amount %}
+    <tfoot>
+      {% include 'carts/snippets/cart_detail_total.html' with total_amount=total_amount %}
+    </tfoot>
     {% endif %}
   </table>
+  <div class="d-flex justify-content-between">
+    <button type="button" class="btn btn-secondary mx-1 actionbtn">Resetear</button><br>
+    <form action="{% url 'carts:cart-customer' id=object.id %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success mx-1 actionbtn">Finalizar compra</button>
+    </form>
+  </div>
   {% endif %}
-  <input type="button" onclick="location.href='#';" value='Remove Selected' />
-  <input type="button" onclick="location.href='{% url 'home' %}';" value='Add products' />
 </div>
 
 <script type="text/javascript">
   document.getElementById("id_q").value = "{{query}}"
 
-  function changeUserFormVisibility() {
-    document.getElementById("user-form").style.visibility = document.getElementById("user-form").style.visibility ==
-      'hidden' ? 'visible' : 'hidden'
-  }
+  /*function changeUserFormVisibility() {
+    document.getElementById("user-form").style.visibility =
+      document.getElementById("user-form").style.visibility == 'hidden' ? 'visible' : 'hidden'
+  }*/
 </script>
 
 {% endblock %}

@@ -52,6 +52,14 @@ def get_cart_detail_view(request, id, p_id=None):
     return render(request, template_name, context)
 
 
+def get_cart_customer_detail_view(request, id):
+    template_name = 'carts/cart_customer_details.html'
+    context = {}
+    obj = get_object_or_404(Cart, id=id)
+    context['object'] = obj
+    return render(request, template_name, context)
+
+
 def get_final_price(original_price, quantity, discount=0.0):
     price = original_price
     if discount > 0.0:

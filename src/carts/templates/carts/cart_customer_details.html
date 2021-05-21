@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <div>
+        <a href="{% url 'cart:cart-detail' id=object.id %}">Volver</a>
+    </div>
+
+</div>
+
+{% endblock content %}

@@ -1,8 +1,9 @@
 <tr>
     <th scope="row">{{cart_item.product.id}}</th>
-    <td><a href="{{ cart_item.product.get_absolute_url }}">{{cart_item.product.name}}</a></td>
+    <th><a href="{{ cart_item.product.get_absolute_url }}">{{cart_item.product.name}}</a></th>
     <td>$ {{cart_item.product.price}}</td>
     <td>{% if cart_item.product.discount %}{{cart_item.product.discount}}%{% else %}-{% endif %}</td>
+    <td>$ {{cart_item.product.get_total_price}}</td>
     <td>x{{cart_item.quantity}}</td>
     <td>$ {{total}}</td>
     <td>
